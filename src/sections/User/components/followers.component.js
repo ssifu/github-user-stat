@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 import React, { useContext } from "react";
-import { GithubContext } from "../context/context";
-import { fonts } from "../utils";
+import { GithubContext } from "../../../context/context";
+import { fonts } from "../../../utils";
+import { CardComponent, CardTag, CardTagText } from "./card.styles";
 
 export default function Followers() {
   const { followers } = useContext(GithubContext);
@@ -40,34 +41,6 @@ export default function Followers() {
     </CardComponent>
   );
 }
-
-const CardComponent = styled.View`
-  background: ${colors.white};
-  padding: 16px;
-  margin: 16px;
-  position: relative;
-`;
-
-const CardTag = styled.View`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  transform: translateY(-20px);
-  background: ${colors.white};
-  color: ${colors.grey5};
-  border-top-right-radius: ${spacing.radius};
-  border-top-left-radius: ${spacing.radius};
-  text-transform: capitalize;
-  padding: 2px 16px;
-`;
-
-const CardTagText = styled.Text`
-  font-size: 20px;
-  font-family: ${fonts.mono};
-  letter-spacing: ${spacing.spacing};
-  background: ${colors.white};
-  color: ${colors.grey5};
-`;
 
 const FollowersContainer = styled.ScrollView`
   height: 260px;

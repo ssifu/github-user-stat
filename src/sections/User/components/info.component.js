@@ -4,9 +4,9 @@ import OcticonIcon from "react-native-vector-icons/Octicons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import styled from "styled-components/native";
 
-import { SafeArea } from "../utils/safe-are.utils";
-import { GithubContext } from "../context/context";
-import { utils, colors } from "../utils";
+import { SafeArea } from "../../../utils/safe-are.utils";
+import { GithubContext } from "../../../context/context";
+import { utils, colors } from "../../../utils";
 
 const InfoComponentsContainer = styled.View`
   width: 100%;

@@ -5,8 +5,9 @@ import styled from "styled-components/native";
 import OcticonIcon from "react-native-vector-icons/Octicons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { GithubContext } from "../context/context";
-import { colors, fonts, spacing } from "../utils";
+import { GithubContext } from "../../../context/context";
+import { colors, fonts, spacing } from "../../../utils";
+import { CardComponent, CardTag, CardTagText } from "./card.styles";
 
 export default function Card() {
   const { githubUser } = useContext(GithubContext);
@@ -69,34 +70,6 @@ export default function Card() {
     </CardComponent>
   );
 }
-
-const CardComponent = styled.View`
-  background: ${colors.white};
-  padding: 16px;
-  margin: 16px;
-  position: relative;
-`;
-
-const CardTag = styled.View`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  transform: translateY(-20px);
-  background: ${colors.white};
-  color: ${colors.grey5};
-  border-top-right-radius: ${spacing.radius};
-  border-top-left-radius: ${spacing.radius};
-  text-transform: capitalize;
-  padding: 2px 16px;
-`;
-
-const CardTagText = styled.Text`
-  font-size: 20px;
-  font-family: ${fonts.mono};
-  letter-spacing: ${spacing.spacing};
-  background: ${colors.white};
-  color: ${colors.grey5};
-`;
 
 const UserInfoView = styled.View`
   flex-direction: row;

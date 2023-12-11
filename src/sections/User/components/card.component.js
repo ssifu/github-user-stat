@@ -1,6 +1,5 @@
 import { View, Text, Linking, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
-import { Button } from "react-native-paper";
 import styled from "styled-components/native";
 import OcticonIcon from "react-native-vector-icons/Octicons";
 import Ionicons from "react-native-vector-icons/Ionicons";

@@ -1,15 +1,14 @@
-import { View, Platform } from "react-native";
+import { View, Platform, StatusBar } from "react-native";
 import React, { useContext, useState } from "react";
 import { SearchBar } from "@rneui/themed";
 import styled from "styled-components/native";
+import { Text } from "react-native-paper";
+
 import { colors, fonts, spacing } from "../../utils";
-import { SafeArea } from "../../utils/safe-are.utils";
 import { GithubContext } from "../../context/context";
-import { AntDesign } from "@expo/vector-icons";
-import { Dialog, Portal, Text, Provider } from "react-native-paper";
 
 const Heading = styled.Text`
-  margin-vertical: 16px;
+  margin: 16px;
   font-size: 20px;
   font-family: ${fonts.mono};
   letter-spacing: ${spacing.spacing};
@@ -47,28 +46,29 @@ export default function Search() {
     }
   };
   return (
-    <SafeArea
+    <View
       style={{
-        marginHorizontal: 16,
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight + 10 : 0,
+        backgroundColor: colors.primary10,
       }}
     >
-      {requests > 0 && (
-        <SearchBar
-          platform={Platform.OS}
-          placeholder="Search"
-          clearIcon={() => (
+      <SearchBar
+        platform={Platform.OS}
+        placeholder="Search"
+        clearIcon={() =>
+          requests > 0 ? (
             <SearchButton activeOpacity={0.6} onPress={updateSearch}>
               <Text style={{ color: "white", fontFamily: fonts.mono }}>
                 Search
               </Text>
             </SearchButton>
-          )}
-          onChangeText={(text) => setUser(text)}
-          value={user}
-        />
-      )}
+          ) : null
+        }
+        onChangeText={(text) => setUser(text)}
+        value={user}
+      />
       <Heading>Requests: {requests} / 60</Heading>
       {error.show ? <ErrorText>{error.message}</ErrorText> : null}
-    </SafeArea>
+    </View>
   );
 }

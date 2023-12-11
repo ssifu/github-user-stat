@@ -21,7 +21,7 @@ export default colors = {
   grey9: "hsl(212, 33%, 89%)",
   grey10: "#f1f5f8",
   white: "#fff",
-  redDark: "hsl(360, 67%, 44%)",
+  redDark: "hsl(360, 90%, 44%)",
   redLight: "hsl(360, 71%, 66%)",
   greenDark: "hsl(125, 67%, 44%)",
   greenLight: "hsl(125, 71%, 66%)",

@@ -1,13 +1,12 @@
-import { View, Text } from "react-native";
 import React, { useContext } from "react";
 import styled from "styled-components/native";
 
-import { GithubContext } from "../../context/context";
-import PieChartComponent from "./components/pie.chart";
-import BarChartComponent from "./components/bar.chart";
-import { fonts, spacing } from "../../utils";
+import { GithubContext } from "../context/context";
+import PieChartComponent from "../sections/Repository/components/pie.chart";
+import BarChartComponent from "../sections/Repository/components/bar.chart";
+import { colors } from "../utils";
 
-export default function Repos() {
+export default function ProfileStats() {
   const { repos } = useContext(GithubContext);
 
   const languages = repos.reduce((total, item) => {
@@ -52,11 +51,15 @@ export default function Repos() {
   );
   stars = Object.values(stars).slice(-5).reverse();
   forks = Object.values(forks).slice(-5).reverse();
-
   return (
-    <>
+    <Container>
       <PieChartComponent chartData={mostUsed} />
-      <BarChartComponent chartData={forks} />
-    </>
+      <BarChartComponent chartData={stars} color="#686ef2" stars />
+      <BarChartComponent chartData={forks} color="#f05b24" />
+    </Container>
   );
 }
+
+const Container = styled.ScrollView`
+  background-color: ${colors.primary10};
+`;

@@ -1,71 +1,124 @@
-import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { View, TouchableOpacity, StyleSheet, Animated } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../../../utils";
-import { TextInput } from "react-native-paper";
-import { AntDesign } from "@expo/vector-icons";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
 
-export default function SearchBox() {
-  const [value, setValue] = useState(0);
-  const animation = useSharedValue(0);
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      width:
-        animation.value === 1
-          ? withTiming(300, { duration: 500 })
-          : withTiming(0, { duration: 500 }),
-    };
-  });
+const FloatingButton = ({ navigateTo }) => {
+  const [pressed, setPressed] = useState(false);
+  const [icon_1] = useState(new Animated.Value(40));
+  const [icon_2] = useState(new Animated.Value(40));
+  const [icon_3] = useState(new Animated.Value(40));
+
+  const [pop, setPop] = useState(false);
+
+  const popIn = () => {
+    setPop(true);
+    Animated.timing(icon_1, {
+      toValue: 130,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(icon_2, {
+      toValue: 110,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(icon_3, {
+      toValue: 130,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const popOut = () => {
+    setPop(false);
+    Animated.timing(icon_1, {
+      toValue: 40,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(icon_2, {
+      toValue: 40,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+    Animated.timing(icon_3, {
+      toValue: 40,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
+  };
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        bottom: 100,
-      }}
-    >
-      <Animated.View
-        style={[
-          {
-            width: 300,
-            height: 50,
-            backgroundColor: colors.primary5,
-            borderRadius: 10,
-            flexDirection: "row",
-            alignItems: "center",
-          },
-          animatedStyle,
-        ]}
-      >
-        <TextInput
-          style={{
-            width: "85%",
-          }}
-          placeholder="Search"
-        />
+    <View>
+      <Animated.View style={[styles.circle, { bottom: icon_1 }]}>
         <TouchableOpacity
           onPress={() => {
-            if (animation.value === 1) {
-              animation.value = 0;
-              setValue(0);
-            } else {
-              animation.value = 1;
-              setValue(1);
-            }
+            // pop === false ? popIn() : popOut();
+            navigateTo("ProfileStats");
+            // setPressed(!pressed);
           }}
         >
-          {value === 1 ? (
-            <AntDesign name="search1" size={30} color={colors.white} />
-          ) : (
-            <AntDesign name="close" size={30} color={colors.white} />
-          )}
+          <Icon name="line-chart" size={25} color="#FFF" />
         </TouchableOpacity>
       </Animated.View>
+      <Animated.View style={[styles.circle, { bottom: icon_2, right: icon_2 }]}>
+        <TouchableOpacity>
+          <MaterialCommunityIcon
+            name="source-repository-multiple"
+            size={25}
+            color="#FFF"
+          />
+        </TouchableOpacity>
+      </Animated.View>
+      <Animated.View
+        style={[
+          styles.circle,
+          {
+            right: icon_3,
+            backgroundColor: colors.redDark,
+          },
+        ]}
+      >
+        <TouchableOpacity>
+          <MaterialCommunityIcon
+            name="logout"
+            size={25}
+            color={colors.grey10}
+          />
+        </TouchableOpacity>
+      </Animated.View>
+      <TouchableOpacity
+        style={styles.circle}
+        onPress={() => {
+          pop === false ? popIn() : popOut();
+          setPressed(!pressed);
+        }}
+      >
+        {pressed ? (
+          <Icon name="close" size={25} color="#FFF" />
+        ) : (
+          <Ionicons name="menu" size={25} color="#FFF" />
+        )}
+      </TouchableOpacity>
     </View>
   );
-}
+};
+
+export default FloatingButton;
+
+const styles = StyleSheet.create({
+  circle: {
+    backgroundColor: colors.primary5,
+    width: 60,
+    height: 60,
+    position: "absolute",
+    bottom: 40,
+    right: 40,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

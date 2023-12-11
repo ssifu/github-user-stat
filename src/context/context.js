@@ -31,16 +31,18 @@ export const GithubProvider = ({ children }) => {
       await Promise.allSettled([
         axios(`${rootUrl}/users/${login}/repos?per_page=100`),
         axios(`${followers_url}?per_page=100`),
-      ]).then((result) => {
-        const [repos, followers] = result;
-        const status = "fulfilled";
-        if (repos.status === status) {
-          setRepos(repos.value.data);
-        }
-        if (followers.status === status) {
-          setFollowers(followers.value.data);
-        }
-      });
+      ])
+        .then((result) => {
+          const [repos, followers] = result;
+          const status = "fulfilled";
+          if (repos.status === status) {
+            setRepos(repos.value.data);
+          }
+          if (followers.status === status) {
+            setFollowers(followers.value.data);
+          }
+        })
+        .catch((error) => console.error(error));
     } else {
       toggleError(true, "There is no user with that username");
     }

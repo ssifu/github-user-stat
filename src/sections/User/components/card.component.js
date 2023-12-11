@@ -21,29 +21,52 @@ export default function Card() {
     location,
     twitter_username,
   } = githubUser;
+
+  const linkPreix = blog.split(".")[0].split(":")[0];
+  const blogLink =
+    linkPreix === "http" || linkPreix === "https"
+      ? `${blog}`
+      : `https://${blog}`;
+
   return (
     <CardComponent>
       <CardTag>
         <CardTagText>User</CardTagText>
       </CardTag>
+      <AccountButton
+        activeOpacity={0.2}
+        onPress={() => Linking.openURL(html_url)}
+      >
+        <Text
+          style={{
+            fontFamily: fonts.mono,
+            fontWeight: "bold",
+            color: colors.white,
+            textAlign: "center",
+            fontSize: 11,
+          }}
+        >
+          Follow
+        </Text>
+      </AccountButton>
       <UserInfoView>
         <UserImage source={{ uri: avatar_url }} />
         <View>
           <UserName>{name}</UserName>
-          <TwitterName>@{twitter_username || "john_doe"}</TwitterName>
-        </View>
-        <TouchableOpacity activeOpacity={0.2}>
-          <AccountButton
-            mode="contained"
-            buttonColor={`${colors.primary5}`}
-            textColor={`${colors.white}`}
-            onPress={() => Linking.openURL(html_url)}
+          <TwitterName
+            onPress={() =>
+              Linking.openURL(`https://www.twitter.com/${twitter_username}`)
+            }
           >
-            Follow
-          </AccountButton>
-        </TouchableOpacity>
+            @{twitter_username || null}
+          </TwitterName>
+        </View>
       </UserInfoView>
-      <UserBio>{bio}</UserBio>
+      {bio ? (
+        <UserBio>{bio}</UserBio>
+      ) : (
+        <UserBio style={{ color: colors.grey8 }}>No bio found!</UserBio>
+      )}
       <UserLinks>
         <Link>
           <OcticonIcon
@@ -51,7 +74,11 @@ export default function Card() {
             size={20}
             color={`${colors.grey3}`}
           />
-          <LinkText>{company}</LinkText>
+          {company ? (
+            <LinkText>{company}</LinkText>
+          ) : (
+            <LinkText style={{ color: colors.grey8 }}>No Company</LinkText>
+          )}
         </Link>
         <Link>
           <Ionicons name="location-sharp" size={20} color={`${colors.grey3}`} />
@@ -59,12 +86,16 @@ export default function Card() {
         </Link>
         <Link>
           <Ionicons name="link" size={20} color={`${colors.grey3}`} />
-          <TouchableOpacity activeOpacity={0.1}>
-            <LinkText
-              style={{ color: `${colors.primary5}` }}
-              onPress={() => Linking.openURL(`https://${blog}`)}
-            >{`https://${blog}`}</LinkText>
-          </TouchableOpacity>
+          {blog ? (
+            <TouchableOpacity activeOpacity={0.1}>
+              <LinkText
+                style={{ color: `${colors.primary5}` }}
+                onPress={() => Linking.openURL(blogLink)}
+              >{`${blog}`}</LinkText>
+            </TouchableOpacity>
+          ) : (
+            <LinkText style={{ color: colors.grey8 }}>No blog found</LinkText>
+          )}
         </Link>
       </UserLinks>
     </CardComponent>
@@ -94,14 +125,21 @@ const UserName = styled.Text`
 `;
 
 const TwitterName = styled.Text`
+  color: ${colors.primary5};
   margin-bottom: 0px;
   font-family: ${fonts.mono};
 `;
 
-const AccountButton = styled(Button)`
+const AccountButton = styled.TouchableOpacity`
+  positon: absolute;
+  padding: 10px 12px;
+  left: 250px;
+  width: 70px;
+  font-weight: bold;
+  background-color: ${colors.primary5};
+  border-radius: 20px;
   justify-self: flex-end;
-  margin-left: 16px;
-  font-family: ${fonts.mono};
+  margin-left: 10px;
 `;
 
 const UserBio = styled.Text`

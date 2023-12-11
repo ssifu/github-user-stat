@@ -12,6 +12,15 @@ import { GithubContext } from "../../../context/context";
 import { fonts } from "../../../utils";
 import { CardComponent, CardTag, CardTagText } from "./card.styles";
 
+const ErrorText = styled.Text`
+  margin-vertical: 16px;
+  font-size: 14px;
+  align-self: center;
+  font-family: ${fonts.mono};
+  letter-spacing: ${spacing.spacing};
+  color: ${colors.redDark};
+`;
+
 export default function Followers() {
   const { followers } = useContext(GithubContext);
   return (
@@ -19,25 +28,29 @@ export default function Followers() {
       <CardTag>
         <CardTagText>Followers</CardTagText>
       </CardTag>
-      <FollowersContainer
-        nestedScrollEnabled={true}
-        showsVerticalScrollIndicator={true}
-      >
-        {followers.map((follower, index) => {
-          const { avatar_url: img, html_url, login } = follower;
-          return (
-            <TouchableOpacity key={index} activeOpacity={0.5}>
-              <FollowerItem>
-                <FollowerImage source={{ uri: img }} alt={login} />
-                <View>
-                  <FollowerName>{login}</FollowerName>
-                  <FollowerLink>{html_url}</FollowerLink>
-                </View>
-              </FollowerItem>
-            </TouchableOpacity>
-          );
-        })}
-      </FollowersContainer>
+      {followers.length > 0 ? (
+        <FollowersContainer
+          nestedScrollEnabled={true}
+          showsVerticalScrollIndicator={true}
+        >
+          {followers.map((follower, index) => {
+            const { avatar_url: img, html_url, login } = follower;
+            return (
+              <TouchableOpacity key={index} activeOpacity={0.5}>
+                <FollowerItem>
+                  <FollowerImage source={{ uri: img }} alt={login} />
+                  <View>
+                    <FollowerName>{login}</FollowerName>
+                    <FollowerLink>{html_url}</FollowerLink>
+                  </View>
+                </FollowerItem>
+              </TouchableOpacity>
+            );
+          })}
+        </FollowersContainer>
+      ) : (
+        <ErrorText>No followers found.</ErrorText>
+      )}
     </CardComponent>
   );
 }

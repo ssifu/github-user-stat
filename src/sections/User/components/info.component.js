@@ -54,7 +54,7 @@ export default function Info() {
       icon: (
         <OcticonIcon
           name="repo"
-          size={20}
+          size={40}
           style={styles.iconStyle("rgb(255, 224, 240)")}
           color="pink"
         />
@@ -68,7 +68,7 @@ export default function Info() {
       icon: (
         <FeatherIcon
           name="users"
-          size={20}
+          size={40}
           style={styles.iconStyle("#e0fcff")}
           color="green"
         />
@@ -82,8 +82,9 @@ export default function Info() {
       icon: (
         <FeatherIcon
           name="user-plus"
-          size={20}
+          size={40}
           style={styles.iconStyle("rgb(230, 230, 255)")}
+          color="purple"
         />
       ),
       label: "following",
@@ -94,8 +95,9 @@ export default function Info() {
       icon: (
         <OcticonIcon
           name="code-square"
-          size={20}
+          size={40}
           style={styles.iconStyle("rgb(255, 251, 234)")}
+          color="yellow"
         />
       ),
       label: "gists",
@@ -125,12 +127,14 @@ export default function Info() {
 const styles = StyleSheet.create({
   iconStyle(color) {
     return {
-      height: 50,
-      width: 50,
+      height: 70,
+      width: 70,
       backgroundColor: color,
       padding: 16,
       borderRadius: 100,
       textAlign: "center",
+      justifyContent: "center",
+      alignItems: "center",
     };
   },
 });

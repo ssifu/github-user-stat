@@ -101,8 +101,7 @@ const styles = StyleSheet.create({
     gap: 5,
     position: "absolute",
     right: 0,
-    top: "50%",
-    bottom: "-50%",
+    top: "25%",
   },
   legendItem: {
     flexDirection: "row",

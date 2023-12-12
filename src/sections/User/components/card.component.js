@@ -49,7 +49,13 @@ export default function Card() {
         </Text>
       </AccountButton>
       <UserInfoView>
-        <UserImage source={{ uri: avatar_url }} />
+        <UserImage
+          source={
+            avatar_url
+              ? { uri: avatar_url }
+              : require("../../../../assets/avatar_placeholder.png")
+          }
+        />
         <View>
           <UserName>{name}</UserName>
           <TwitterName

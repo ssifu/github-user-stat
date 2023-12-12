@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ActivityIndicator, useTheme } from "react-native-paper";
+import { ActivityIndicator, MD2Colors, useTheme } from "react-native-paper";
 import styled from "styled-components/native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
@@ -7,6 +7,7 @@ import {
   AccountContainer,
   AccountBackground,
   AccountCover,
+  AuthButton,
   AuthInput,
   Title,
   ErrorContainer,
@@ -15,34 +16,49 @@ import {
 import { AuthenticationContext } from "../context/authentication.context";
 import { colors, fonts } from "../utils";
 
-export const LoginScreen = ({ navigation }) => {
+export const SignupScreen = ({ navigation }) => {
+  const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-  const { onLogin, isLoading, error } = useContext(AuthenticationContext);
+  const [confirmPassword, setConfirmPassword] = useState(null);
+  const { onSignup, isLoading, error } = useContext(AuthenticationContext);
 
   const theme = useTheme();
   return (
     <AccountBackground>
       <AccountCover />
-      <Title>Login</Title>
+      <Title>Sign up</Title>
       <AccountContainer>
+        {/* <AuthInput
+          placeholder="Username (Github)"
+          value={username}
+          textContentType="username"
+          autoCapitalize="none"
+          onChangeText={(text) => setUsername(text)}
+        /> */}
         <AuthInput
-          label="E-mail"
+          placeholder="E-mail"
           value={email}
           textContentType="emailAddress"
           keyboardType="email-address"
           autoCapitalize="none"
-          placeholder="E-mail"
           onChangeText={(text) => setEmail(text)}
         />
         <AuthInput
-          label="Password"
+          placeholder="Password"
           value={password}
           textContentType="password"
           secureTextEntry
           autoCapitalize="none"
-          placeholder="Password"
           onChangeText={(text) => setPassword(text)}
+        />
+        <AuthInput
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          textContentType="password"
+          secureTextEntry
+          autoCapitalize="none"
+          onChangeText={(text) => setConfirmPassword(text)}
         />
         {error && (
           <ErrorContainer>
@@ -54,7 +70,7 @@ export const LoginScreen = ({ navigation }) => {
           activeOpacity={0.6}
           disabled={isLoading}
           style={{ opacity: isLoading ? 0.5 : 1 }}
-          onPress={() => onLogin(email, password)}
+          onPress={() => onSignup(username, email, password, confirmPassword)}
         >
           {isLoading ? (
             <ActivityIndicator
@@ -63,7 +79,7 @@ export const LoginScreen = ({ navigation }) => {
               color={colors.white}
             />
           ) : null}
-          <TextStyle>{isLoading ? "Loging in..." : "Login"}</TextStyle>
+          <TextStyle>{isLoading ? "Signing up..." : "Signup"}</TextStyle>
         </LoginSignupButton>
       </AccountContainer>
       <LoginSignupButton

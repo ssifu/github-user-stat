@@ -1,20 +1,23 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { useAuth0, Auth0Provider } from "react-native-auth0";
+import { initializeApp } from "firebase/app";
 
-import { AppNavigator } from "./src/navigation/app.navigator";
-import { GithubProvider } from "./src/context/context";
+import Navigation from "./src/navigation";
+import AuthenticationContextProvider from "./src/context/authentication.context";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD3TlZ0aOgkKm5Ti2Zpv81luu-E59mJfpg",
+  authDomain: "githubuserstat.firebaseapp.com",
+  projectId: "githubuserstat",
+  storageBucket: "githubuserstat.appspot.com",
+  messagingSenderId: "407696514058",
+  appId: "1:407696514058:web:9a74307df1cc49fd61d3f3",
+};
+
+initializeApp(firebaseConfig);
 
 export default function App() {
   return (
-    // <Auth0Provider
-    //   domain={"samiulsifat.us.auth0.com"}
-    //   clientId="ghMS4tLLkSROc9Gt11z5VFLSBCpmmrQl"
-    // >
-    <NavigationContainer>
-      <GithubProvider>
-        <AppNavigator />
-      </GithubProvider>
-    </NavigationContainer>
-    // </Auth0Provider>
+    <AuthenticationContextProvider>
+      <Navigation />
+    </AuthenticationContextProvider>
   );
 }

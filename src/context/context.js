@@ -18,6 +18,16 @@ export const GithubProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ show: false, message: "" });
 
+  const defaultUser = async () => {
+    axios(`${rootUrl}/users/ssifu`)
+      .then((response) => {
+        setGithubUser(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const searchGithubUser = async (user) => {
     toggleError();
     setIsLoading(true);
@@ -69,7 +79,10 @@ export const GithubProvider = ({ children }) => {
     setError({ show, message });
   };
 
-  useEffect(checkRequests, []);
+  useEffect(() => {
+    defaultUser();
+    checkRequests();
+  }, []);
 
   return (
     <GithubContext.Provider

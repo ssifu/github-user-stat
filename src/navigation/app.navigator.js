@@ -3,24 +3,26 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
-import { DashboardScreen, ProfileStats, RegisterScreen } from "../screens";
+import { DashboardScreen, ProfileStats } from "../screens";
+import { GithubProvider } from "../context/context";
 
 const Stack = createStackNavigator();
 
 export const AppNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        ...TransitionPresets.FadeFromBottomAndroid,
-      }}
-    >
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Dashboard"
-        component={DashboardScreen}
-      />
-      <Stack.Screen name="ProfileStats" component={ProfileStats} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-    </Stack.Navigator>
+    <GithubProvider>
+      <Stack.Navigator
+        screenOptions={{
+          ...TransitionPresets.FadeFromBottomAndroid,
+        }}
+      >
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Dashboard"
+          component={DashboardScreen}
+        />
+        <Stack.Screen name="ProfileStats" component={ProfileStats} />
+      </Stack.Navigator>
+    </GithubProvider>
   );
 };

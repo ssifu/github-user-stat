@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, TouchableOpacity, StyleSheet, Animated } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcon from "react-native-vector-icons/MaterialCommunityIcons";
+
 import { colors } from "../../../utils";
+import { AuthenticationContext } from "../../../context/authentication.context";
 
 const FloatingButton = ({ navigateTo }) => {
+  const { onLogout } = useContext(AuthenticationContext);
   const [pressed, setPressed] = useState(false);
   const [icon_1] = useState(new Animated.Value(40));
   const [icon_2] = useState(new Animated.Value(40));
@@ -82,7 +85,7 @@ const FloatingButton = ({ navigateTo }) => {
           },
         ]}
       >
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => onLogout()}>
           <MaterialCommunityIcon
             name="logout"
             size={25}

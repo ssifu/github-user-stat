@@ -9,24 +9,26 @@ import { colors } from "../utils";
 export default function ProfileStats() {
   const { repos } = useContext(GithubContext);
 
-  const languages = repos.reduce((total, item) => {
-    const { language, stargazers_count } = item;
-    if (!language) return total;
-    if (!total[language]) {
-      total[language] = {
-        name: language,
-        value: 1,
-        stars: stargazers_count,
-      };
-    } else {
-      total[language] = {
-        ...total[language],
-        value: total[language].value + 1,
-        stars: total[language].stars + stargazers_count,
-      };
-    }
-    return total;
-  }, {});
+  const languages =
+    repos &&
+    repos.reduce((total, item) => {
+      const { language, stargazers_count } = item;
+      if (!language) return total;
+      if (!total[language]) {
+        total[language] = {
+          name: language,
+          value: 1,
+          stars: stargazers_count,
+        };
+      } else {
+        total[language] = {
+          ...total[language],
+          value: total[language].value + 1,
+          stars: total[language].stars + stargazers_count,
+        };
+      }
+      return total;
+    }, {});
 
   const mostUsed = Object.values(languages)
     .sort((a, b) => {

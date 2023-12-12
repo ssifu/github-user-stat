@@ -4,18 +4,11 @@ Welcome to the GitHub Profile Explorer App repository! This React Native mobile 
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started)
-2. [Features](#features)
-3. [Screenshots](#demo-video)
-4. [Dependencies](#dependencies)
-5. [Setup and Installation](#setup-and-installation)
-6. [Usage](#usage)
-7. [Contributing](#contributing)
-8. [License](#license)
-
-## Getting Started
-
-To get started with the GitHub Profile Explorer App, follow the instructions in this readme. Make sure you have all the necessary dependencies installed.
+1. [Features](#features)
+2. [Screenshots](#demo-video)
+3. [Dependencies](#dependencies)
+4. [Setup and Installation](#setup-and-installation)
+5. [Usage](#usage)
 
 ## Features
 

@@ -1,4 +1,4 @@
-# GitHub Profile Explorer App
+# GitHub User Stat
 
 Welcome to the GitHub Profile Explorer App repository! This React Native mobile app allows users to register, log in using Firebase authentication, and explore GitHub profiles. The home screen displays a user's GitHub profile information, and users can search for other GitHub usernames to view their details. The app also includes data visualization features, showing a user's most used language, most popular repos, and most forked repos on the "ProfileStats" screen.
 
